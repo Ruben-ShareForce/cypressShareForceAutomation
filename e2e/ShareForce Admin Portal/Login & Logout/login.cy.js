@@ -29,7 +29,7 @@ describe("ShareForce Login", () => {
         cy.wait(500);
 
         // minimum format validation
-        cy.get("#id_auth-username").type("d");
+        cy.get("#id_auth-username").type("test");
         cy.wait(500);
 
         const formatValidations = [
@@ -42,6 +42,28 @@ describe("ShareForce Login", () => {
                 .first()
                 .should('contain.text', message);
         });
+        cy.wait(500);
+
+        // user and password match validation
+        cy.get("#id_auth-username").clear().type("test@email.com");
+        cy.wait(500);
+        cy.get("#auth_step_button").click();
+        cy.wait(500);
+        cy.get("#id_auth-password").type("wrongpassword");
+        cy.wait(500);
+        cy.get("#auth_step_button").click();
+        cy.wait(500);
+
+        const matchValidations = [
+            { message: "Your username and password didn't match. Please try again." }
+        ];
+
+        matchValidations.forEach(({ message }) => {
+            cy.get("#login-form")
+            .contains("p.error-red", message, { timeout: 10000 })
+            .should("be.visible");
+        });
+        cy.wait(500);
     });
 
     it.skip("logs onto the ShareForce Demo app", () => {
