@@ -35,7 +35,9 @@ describe("ShareForce Logout", () => {
             cy.wait(500);
 
             cy.get("a.btn.btn-sf-lightblue").should("be.visible").click();
-            cy.wait(1000);
+            cy.wait(500);
             
+            cy.url().should("include", "/login");
+
         });
 });
