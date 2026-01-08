@@ -53,7 +53,7 @@ describe("ShareForce Login", () => {
 
     });
 
-    it.skip("logs onto the ShareForce Demo app", () => {
+    it("logs onto the ShareForce Demo app", () => {
         cy.visit("/");
         cy.wait(500);
 
@@ -73,6 +73,10 @@ describe("ShareForce Login", () => {
         cy.get("#id_auth-password").type("ShareForce360!", { log: false });
         cy.wait(500);
         cy.get("#auth_step_button").click();
-        cy.wait(500);
+        cy.wait(2000);
+
+        cy.url().should("include", "/app");
+
+
     });
 });
