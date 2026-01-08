@@ -1,4 +1,4 @@
-describe("ShareForce Login", () => {
+describe("ShareForce Login & Validation Checks", () => {
     it("checks the validations for the initial login process", () => {
         cy.visit("/");
         cy.wait(1000);
@@ -53,7 +53,7 @@ describe("ShareForce Login", () => {
 
     });
 
-    it("logs onto the ShareForce Demo app", () => {
+    it("logs onto the ShareForce app", () => {
         cy.visit("/");
         cy.wait(500);
 
