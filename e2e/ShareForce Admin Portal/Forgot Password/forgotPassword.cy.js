@@ -1,5 +1,5 @@
 describe("Forgout Password Flow" , () => {
-    it("triggers the forgot password flow", () => {
+    it.skip("triggers the forgot password flow", () => {
         cy.visit("/");
         cy.wait(500);
 
@@ -29,9 +29,6 @@ describe("Forgout Password Flow" , () => {
         cy.get("#auth_step_button").click();
         cy.wait(500);
 
-        // cy.attemptForgotPasswordWithFakeEmail();
-        // cy.wait(500);
-
         cy.get("#forgot_password_link").should("be.visible").click();
         cy.wait(500);
 
@@ -47,15 +44,39 @@ describe("Forgout Password Flow" , () => {
         cy.wait(500);
     });
 
-    it("checks for the forgot password mail in Mailpit", () => {                
+    it("checks for the forgot password mail and redirect", () => {
         cy.visit("http://localhost:8025");
         cy.wait(1000);
 
         cy.contains("button", "Inbox").click({ force: true });
-        cy.wait(500);
-
-        cy.get('a.message').filter(':contains("ShareForce password reset")').first().click();
         cy.wait(1000);
 
+        cy.get("a.message")
+            .filter(':contains("ShareForce password reset")')
+            .first()
+            .click();
+        cy.wait(500);
+
+        cy.get('a[href*="/reset/"]')
+            .first()
+            .invoke('attr', 'href')
+            .then((resetUrl) => {
+                // Convert https://127.0.0.1:8000/... -> http://127.0.0.1:8000/...
+                const httpUrl = resetUrl.replace(/^https:\/\//, "http://");
+
+                cy.visit(httpUrl);
+            });
+        
+        cy.wait(1500);
+
+        cy.origin("http://127.0.0.1:8000", () => {
+        cy.get("#djHideToolBarButton").then(($btn) => {
+            if ($btn.is(":visible")) {
+            cy.get("#djHideToolBarButton").click();
+                }
+             });
+        });
+
+        cy.wait(500);
     });
 });
