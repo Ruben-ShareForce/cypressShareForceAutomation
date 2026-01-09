@@ -1,5 +1,5 @@
 describe("Forgout Password Flow" , () => {
-    it("checks the forgot password flow", () => {
+    it("triggers the forgot password flow", () => {
         cy.visit("/");
         cy.wait(500);
 
@@ -45,6 +45,17 @@ describe("Forgout Password Flow" , () => {
         cy.get("p.text-white.mb-2.opensans-normal").should("be.visible").contains("We have emailed you instructions for setting your password, if an account exists with the email you entered. You should receive them shortly.");
 
         cy.wait(500);
+    });
+
+    it("checks for the forgot password mail in Mailpit", () => {                
         cy.visit("http://localhost:8025");
+        cy.wait(1000);
+
+        cy.contains("button", "Inbox").click({ force: true });
+        cy.wait(500);
+
+        cy.get('a.message').filter(':contains("ShareForce password reset")').first().click();
+        cy.wait(1000);
+
     });
 });
