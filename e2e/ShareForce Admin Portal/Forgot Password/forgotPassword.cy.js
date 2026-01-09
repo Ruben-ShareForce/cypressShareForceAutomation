@@ -1,5 +1,5 @@
 describe("Forgout Password Flow" , () => {
-    it.skip("triggers the forgot password flow", () => {
+    it("triggers the forgot password flow", () => {
         cy.visit("/");
         cy.wait(500);
 
