@@ -15,11 +15,6 @@ Cypress.Commands.add("loginRoot", () => {
 
     cy.url().should("include", "/app");
 
-    cy.get('#djHideToolBarButton').then(($btn) => {
-            if ($btn.is(':visible')) {
-                cy.get('#djHideToolBarButton').click();
-            }
-        });
   }, {
     cacheAcrossSpecs: true
   });

@@ -8,6 +8,13 @@ describe("Add Employee Flow" , () => {
         cy.visit("/");
         cy.wait(500);
 
+        cy.get('#djHideToolBarButton').then(($btn) => {
+            if ($btn.is(':visible')) {
+                cy.get('#djHideToolBarButton').click();
+            }
+        });
+        cy.wait(500);
+
         cy.get("a[href='/app/employees/']").should("be.visible").click();
         cy.wait(500);
 
@@ -44,6 +51,28 @@ describe("Add Employee Flow" , () => {
         });
 
         cy.wait(500);
+
+        // removing required field validations by filling in data
+        cy.get("#id_name").type("Cypress");
+        cy.get("#id_surname").type("Test");
+        cy.get("#id_employee_id").type(`CYP${Date.now()}`);
+
+        cy.contains("button", "Create Employee")
+            .scrollIntoView()
+            .should("be.visible")
+            .click();
+
+        cy.wait(2500);
+
+        const globalValidations = [
+            { message: "Please complete the email address or select 'User has no email'" },
+        ];
+
+        globalValidations.forEach(({ message }) => {
+            cy.contains(".alert.alert-danger li",
+                "Please complete the email address or select 'User has no email'").should("be.visible");
+        });
+
     });
 
 });
