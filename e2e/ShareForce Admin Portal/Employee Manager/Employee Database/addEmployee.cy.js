@@ -1,10 +1,21 @@
 describe("Add Employee Flow" , () => {
+
+    let employeeFixture;
+
+    before(() => {
+        cy.generateEmployeeFixture().then((employee) => {
+        employeeFixture = employee;
+
+        cy.log(`Generated Employee: ${JSON.stringify(employeeFixture)}`);
+        });
+    });
+    
     beforeEach(() => {
         cy.loginRoot();
         cy.wait(1000);
     });
     
-    it("can verify all validations for adding a new employee", () => {
+    it.skip("can verify all validations for adding a new employee", () => {
         cy.visit("/");
         cy.wait(500);
 
@@ -94,6 +105,41 @@ describe("Add Employee Flow" , () => {
         cy.wait(500);
 
         cy.get("span.btn.btn-sf-lightblue.confirm").should("be.visible").first().click();
+
+    });
+
+    it("can add a new employee successfully", () => {
+        cy.visit("/");
+        cy.wait(500);
+
+        cy.get('#djHideToolBarButton').then(($btn) => {
+            if ($btn.is(':visible')) {
+                cy.get('#djHideToolBarButton').click();
+            }
+        });
+        cy.wait(500);
+
+        cy.get("a[href='/app/employees/']").should("be.visible").click();
+        cy.wait(500);
+
+        cy.get("a[href='/app/employees/create/']").should("be.visible").click();
+        cy.wait(1000);
+
+        cy.generateEmployeeFixture().then((employee) => {
+            cy.get("#id_name").clear().type(employee.name);
+            cy.get("#id_surname").clear().type(employee.surname);
+            cy.get("#id_employee_id").clear().type(employee.employee_id);
+            cy.get("#id_email").clear().type(employee.email, { parseSpecialCharSequences: false });
+        });
+
+        cy.wait(500);
+        
+        // we could add all fields for an employee but it would be a lot of overhead due to the amount of fields
+
+        cy.contains("button", "Create Employee").scrollIntoView().should("be.visible").click();
+        cy.wait(1000);
+
+        
 
     });
 

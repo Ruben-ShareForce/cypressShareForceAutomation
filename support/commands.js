@@ -26,7 +26,6 @@
 
 Cypress.Commands.add("generateEmployeeFixture", () => {
   return cy.task("generateEmployee").then((employee) => {
-    // if you ever want to tweak/override here, you can
-    return employee;
+    return cy.task("saveEmployeeFixture", employee).then(() => employee);
   });
 });
