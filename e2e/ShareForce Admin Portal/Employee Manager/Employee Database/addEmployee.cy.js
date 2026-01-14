@@ -27,7 +27,7 @@ describe("Add Employee Flow" , () => {
         // end of cancel logic
 
         cy.get("a[href='/app/employees/create/']").should("be.visible").click();
-        cy.wait(2000);
+        cy.wait(4000);
 
         // click add button to trigger validations
         cy.contains("button", "Create Employee")
@@ -64,6 +64,7 @@ describe("Add Employee Flow" , () => {
 
         cy.wait(2500);
 
+        // having to trigger email validation manually afterwards
         const globalValidations = [
             { message: "Please complete the email address or select 'User has no email'" },
         ];
@@ -72,6 +73,27 @@ describe("Add Employee Flow" , () => {
             cy.contains(".alert.alert-danger li",
                 "Please complete the email address or select 'User has no email'").should("be.visible");
         });
+
+
+        cy.generateEmployeeFixture().then((employee) => {
+            cy.get("#id_name").clear().type(employee.name);
+            cy.get("#id_surname").clear().type(employee.surname);
+            cy.get("#id_employee_id").clear().type(employee.employee_id);
+            cy.get("#id_email").clear().type(employee.email, { parseSpecialCharSequences: false });
+        });
+
+        cy.wait(500);
+        
+        cy.contains("button", "Create Employee").scrollIntoView().should("be.visible").click();
+        cy.wait(1000);
+
+        cy.contains("a", "Delete Employee")
+            .should("be.visible")
+            .click();
+
+        cy.wait(500);
+
+        cy.get("span.btn.btn-sf-lightblue.confirm").should("be.visible").first().click();
 
     });
 

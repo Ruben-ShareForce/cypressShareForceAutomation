@@ -24,3 +24,9 @@
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 
+Cypress.Commands.add("generateEmployeeFixture", () => {
+  return cy.task("generateEmployee").then((employee) => {
+    // if you ever want to tweak/override here, you can
+    return employee;
+  });
+});
