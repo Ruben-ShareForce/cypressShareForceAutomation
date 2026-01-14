@@ -1,0 +1,15 @@
+!/.gitignore
+!package.json
+!package-lock.json
+
+# Ignore system folders and unnecessary stuff
+node_modules/
+
+# Editor-specific and OS-specific files
+.vscode/
+.DS_Store
+Thumbs.db
+
+# Logs and environments
+*.log
+.env
