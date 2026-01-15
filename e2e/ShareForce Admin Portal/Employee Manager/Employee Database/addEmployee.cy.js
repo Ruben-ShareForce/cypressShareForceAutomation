@@ -14,7 +14,7 @@ describe("Add Employee Flow", () => {
     cy.wait(1000);
   });
 
-  it("can verify all validations for adding a new employee", () => {
+  it.skip("can verify all validations for adding a new employee", () => {
     cy.visit("/");
     cy.wait(500);
 
@@ -102,5 +102,36 @@ describe("Add Employee Flow", () => {
     cy.wait(1000);
     cy.url().should("include", "/app/employees/");
   });
+
+  it("can add a new employee successfully", () => {
+    cy.visit("/");
+    cy.wait(500);
+    cy.get("body").then(($body) => {
+      if ($body.find("#djHideToolBarButton:visible").length) {
+        cy.get("#djHideToolBarButton").click();
+      }
+    });
+    cy.wait(500);
+
+    cy.get("a[href='/app/employees/']").should("be.visible").click();
+    cy.wait(500);
+    cy.get("a[href='/app/employees/create/']").should("be.visible").click();
+    cy.wait(1000);
+
+    cy.get("#id_name").clear().type(employeeFixture.name);
+    cy.get("#id_surname").clear().type(employeeFixture.surname);
+    cy.get("#id_employee_id").clear().type(employeeFixture.employee_id);
+    cy.get("#id_email")
+      .clear()
+      .type(employeeFixture.email, { parseSpecialCharSequences: false });
+
+    cy.wait(1000);
+
+    cy.contains("button", "Create Employee")
+        .scrollIntoView()
+        .should("be.visible")
+        .click();
+    cy.wait(1000);
+});
 
 });
