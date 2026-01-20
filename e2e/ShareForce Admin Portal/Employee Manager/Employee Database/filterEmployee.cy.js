@@ -3,7 +3,7 @@ describe("Filter Employee Flow", () => {
     cy.loginRoot();
   });
 
-  it.skip("can toggle the filter panel on and off", () => {
+  it("can toggle the filter panel on and off", () => {
     cy.visit("/");
     
     cy.get("body").then(($body) => {
@@ -21,10 +21,10 @@ describe("Filter Employee Flow", () => {
     cy.wait(1000);
 
     cy.get("input[type='button'][class='btn btn-sf-lightblue pull_right'][onclick=\"location.href='/app/employees/';\"]").should("be.visible");
-
+    cy.wait(1000);
     });
 
-  it.skip("can filter for existing employee/s using a random entity value", () => {
+  it("can filter for existing employee/s using a random entity value", () => {
       cy.visit("/");
 
       cy.get("body").then(($body) => {
@@ -53,10 +53,10 @@ describe("Filter Employee Flow", () => {
       cy.get("button[type='submit'][class='btn btn-sf-lightblue pull_right']")
         .should("be.visible")
         .click();
-
+      cy.wait(1000);
     });
 
-    it.skip("can filter for existing employee/s using a random leavers (true/false) value", () => {
+    it("can filter for existing employee/s using a random leavers (true/false) value", () => {
       cy.visit("/");
 
       cy.get("body").then(($body) => {
@@ -85,10 +85,10 @@ describe("Filter Employee Flow", () => {
       cy.get("button[type='submit'][class='btn btn-sf-lightblue pull_right']")
         .should("be.visible")
         .click();
-
+      cy.wait(1000);
     });
 
-    it.skip("can filter for existing employee/s using a random leave reason value", () => {
+    it("can filter for existing employee/s using a random leave reason value", () => {
       cy.visit("/");
 
       cy.get("body").then(($body) => {
@@ -117,10 +117,10 @@ describe("Filter Employee Flow", () => {
       cy.get("button[type='submit'][class='btn btn-sf-lightblue pull_right']")
         .should("be.visible")
         .click();
-
+      cy.wait(1000);
     });
 
-    it.skip("can filter for existing employee/s using a random account status value", () => {
+    it("can filter for existing employee/s using a random account status value", () => {
       cy.visit("/");
 
       cy.get("body").then(($body) => {
@@ -149,10 +149,10 @@ describe("Filter Employee Flow", () => {
       cy.get("button[type='submit'][class='btn btn-sf-lightblue pull_right']")
         .should("be.visible")
         .click();
-
+      cy.wait(1000);
     });
 
-    it.skip("can filter for existing employee/s using a random users with email (true/false) value", () => {
+    it("can filter for existing employee/s using a random users with email (true/false) value", () => {
       cy.visit("/");
 
       cy.get("body").then(($body) => {
@@ -181,10 +181,10 @@ describe("Filter Employee Flow", () => {
       cy.get("button[type='submit'][class='btn btn-sf-lightblue pull_right']")
         .should("be.visible")
         .click();
-
+      cy.wait(1000);
     });
 
-    it.skip("can filter for existing employee/s using a random is director (true/false) value", () => {
+    it("can filter for existing employee/s using a random is director (true/false) value", () => {
       cy.visit("/");
 
       cy.get("body").then(($body) => {
@@ -213,7 +213,7 @@ describe("Filter Employee Flow", () => {
       cy.get("button[type='submit'][class='btn btn-sf-lightblue pull_right']")
         .should("be.visible")
         .click();
-
+      cy.wait(1000);
     });
 
     it("can filter for existing employee/s using a random has awards (true/false) value", () => {
@@ -245,7 +245,7 @@ describe("Filter Employee Flow", () => {
       cy.get("button[type='submit'][class='btn btn-sf-lightblue pull_right']")
         .should("be.visible")
         .click();
-
+      cy.wait(1000);
     });
 
 });
