@@ -30,6 +30,24 @@ describe("View Employee Profile", () => {
 
       cy.get("input[name='q']").should("be.visible").type(randomValue, { delay: 50 }).type('{enter}');
       cy.wait(1000);
+
+      cy.get("#list_table").should("be.visible");
+
+      cy.get("#list_table tbody tr").eq(1).should("be.visible");
+      cy.wait(500);
+
+      cy.get("#list_table tbody tr").eq(1)
+        .within(() => {
+            cy.get("button.dropdown-toggle")
+            .should("be.visible")
+            .click();
+        });
+
+      cy.contains("a", "View Profile").should("be.visible").click();
+      cy.wait(1000);
+
+      cy.get("h1.normalize").should("be.visible");
+
     });
   });
 });
