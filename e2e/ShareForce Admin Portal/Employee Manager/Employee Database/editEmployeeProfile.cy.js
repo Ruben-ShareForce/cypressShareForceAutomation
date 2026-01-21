@@ -97,19 +97,13 @@ describe("Edit Employee Profile", () => {
   });
 
   it("can edit the employee and set the test values back", () => {
-    cy.fixture("employeeSearchTable").then((employees) => {
-    
-    const employee = employees.find(e => e.name === "Cypress");
-
-    expect(employee, "Cypress test employee exists in fixture").to.exist;
-
     cy.visit("/");
 
     cy.get("body").then(($body) => {
         if ($body.find("#djHideToolBarButton:visible").length) {
           cy.get("#djHideToolBarButton").click();
         }
-      });
+    });
 
     cy.get("a[href='/app/employees/']").should("be.visible").click();
     cy.wait(1000);
@@ -127,7 +121,7 @@ describe("Edit Employee Profile", () => {
             cy.get("button.dropdown-toggle")
             .should("be.visible")
             .click();
-        });
+    });
 
     cy.contains("a", "View Profile").should("be.visible").click();
     cy.wait(1000);
@@ -149,6 +143,5 @@ describe("Edit Employee Profile", () => {
         .should("be.visible")
         .first()
         .click();
-  });
-  });
+     });
 });
