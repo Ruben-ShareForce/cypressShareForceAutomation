@@ -22,7 +22,7 @@ describe("Filter Employee Flow", () => {
 
     cy.get("input[type='button'][class='btn btn-sf-lightblue pull_right'][onclick=\"location.href='/app/employees/';\"]").should("be.visible");
     cy.wait(1000);
-  });
+    });
 
   it("can filter for existing employee/s using a random entity value", () => {
       cy.visit("/");
