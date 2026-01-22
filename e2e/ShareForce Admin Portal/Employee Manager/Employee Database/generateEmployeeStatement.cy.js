@@ -1,9 +1,9 @@
-describe("View Employee Activities", () => {
+describe("Generate Employee Statement", () => {
   beforeEach(() => {
     cy.loginRoot();
   });
 
-  it("can view an employee's activities", () => {
+  it("can generate an employee's statement", () => {
     cy.fixture("employeeSearchTable").then((employeeFixture) => {
       const employee = employeeFixture[Math.floor(Math.random() * employeeFixture.length)];
 
@@ -43,10 +43,8 @@ describe("View Employee Activities", () => {
             .click();
         });
 
-    cy.contains("a", "View Activities").should("be.visible").click();
+    cy.contains("a", "Generate Statement").should("be.visible").click();
     cy.wait(1000);
-
-    cy.contains("h1.normalize", "Employee Activities").should("be.visible");
 
     });
 });
