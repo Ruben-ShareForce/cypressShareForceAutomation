@@ -1,9 +1,9 @@
-describe("Resend Activation Email", () => {
+describe("Activate Account", () => {
   beforeEach(() => {
     cy.loginRoot();
   });
 
-  it("can filter for active employees and resend activation email", () => {
+  it("can filter for inactive employees and activate their account", () => {
     cy.visit("/");
 
     cy.get("body").then(($body) => {
@@ -20,7 +20,7 @@ describe("Resend Activation Email", () => {
 
     cy.get("#id_account_status")
       .should("be.visible")
-      .select("True");
+      .select("False");
 
     cy.wait(500);
     cy.get("button[type='submit'][class='btn btn-sf-lightblue pull_right']")
@@ -40,13 +40,13 @@ describe("Resend Activation Email", () => {
             .click();
         });
       
-    cy.contains("a", "Resend Activation Email").should("be.visible").click();
+    cy.contains("a", "Activate Account").should("be.visible").click();
     cy.wait(1000);
 
     cy.contains("span", "Yes").should("be.visible").click();
     cy.wait(500);
 
-    cy.get("div.alert.alert-dismissable.alert-info").should("be.visible").contains("The activation email has been sent");
+    cy.get("div.alert.alert-dismissable.alert-info").should("be.visible").contains("The account has been activated");
   });
 
   it("can log into the mailserver and confirm the activation email was received", () => {
