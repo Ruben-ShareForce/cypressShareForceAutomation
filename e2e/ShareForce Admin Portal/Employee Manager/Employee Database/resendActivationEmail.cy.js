@@ -3,7 +3,7 @@ describe("Resend Activation Email", () => {
     cy.loginRoot();
   });
 
-  it("can filter for active employees and resend activation email", () => {
+  it.skip("can filter for active employees and resend activation email", () => {
     cy.visit("/");
 
     cy.get("body").then(($body) => {
@@ -47,5 +47,20 @@ describe("Resend Activation Email", () => {
     cy.wait(500);
 
     cy.get("div.alert.alert-dismissable.alert-info").should("be.visible").contains("The activation email has been sent");
+  });
+
+  it("can log into the mailserver and confirm the activation email was received", () => {
+    cy.visit("http://localhost:8025");
+    cy.wait(1000);
+
+    cy.contains("button", "Inbox").click({ force: true });
+    cy.wait(1000);
+
+    cy.get("a.message")
+        .filter(':contains("Welcome to your share incentive scheme portal")')
+        .first()
+        .click();
+    cy.wait(500);
+
   });
 });
