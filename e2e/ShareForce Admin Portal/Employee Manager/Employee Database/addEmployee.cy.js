@@ -127,7 +127,6 @@ describe("Add Employee Flow", () => {
 
     cy.wait(1000);
 
-
     // we could add all fields eventually but not feasible now
     
     cy.contains("button", "Create Employee")

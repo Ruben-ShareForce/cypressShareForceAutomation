@@ -23,6 +23,18 @@ module.exports = defineConfig({
           return { name, surname, employee_id, email };
         },
 
+        generateEntity() {
+          const name = `CYP ${Date.now()} ${faker.company.name()}`.slice(0, 90);
+
+          const region = faker.location.state().slice(0, 50);
+          const company_code = faker.string.alphanumeric({ length: { min: 4, max: 10 } }).toUpperCase();
+          const business_unit = faker.commerce.department().slice(0, 100);
+            let group = faker.company.name().trim().slice(0, 100);
+            group = group.charAt(0).toUpperCase() + group.slice(1);
+
+          return { name, region, company_code, business_unit, group };
+        },
+
         ensureDir({ dir }) {
           const abs = path.isAbsolute(dir) ? dir : path.join(config.projectRoot, dir);
           fs.mkdirSync(abs, { recursive: true });
