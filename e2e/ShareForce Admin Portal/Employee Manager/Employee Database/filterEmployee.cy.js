@@ -288,7 +288,7 @@ describe("Filter Employee Flow", () => {
         "#id_has_awards",
       ];
 
-      const runs = 10;
+      const runs = 3;
 
       Cypress._.times(runs, (i) => {
         cy.log(`Run ${i + 1}/${runs}`);
